@@ -8,7 +8,7 @@ const Login = ({ touched, errors }) => {
   const token = localStorage.getItem("token");
 
   if (token) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/friends" />;
   }
 
   return (
@@ -63,7 +63,7 @@ export default withFormik({
         formikBag.props.history.push("/friends");
       })
       .catch(error => {
-        console.log(error.response.data);
+        console.log(error);
       });
   }
 })(Login);

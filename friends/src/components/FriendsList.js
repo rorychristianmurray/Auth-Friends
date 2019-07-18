@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const FriendsList = ({ history }) => {
-  const [friends, setFriends] = useState("");
+  const [friends, setFriends] = useState([""]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,7 +17,7 @@ const FriendsList = ({ history }) => {
         })
         .then(response => {
           console.log("GET response", response);
-          // setFriends(response.data);
+          setFriends([response.data]);
         })
         .catch(error => {
           console.log("GET error", error);
@@ -27,9 +27,12 @@ const FriendsList = ({ history }) => {
     }
   }, [history]);
 
+  console.log("FriendsList friends", friends);
   return (
     <div>
-      <div>Friends list incoming </div>
+      {friends.map(friend => {
+        return <Friend friend={friend} />;
+      })}
     </div>
   );
 };
