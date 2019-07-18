@@ -14,9 +14,14 @@ const Login = ({ touched, errors }) => {
   return (
     <Form className="login-form">
       <div className="form-group">
-        <label className="label">Email</label>
-        <Field className="input" name="email" type="email" autoComplete="off" />
-        {/* <p>{touched.email && errors.email}</p> */}
+        <label className="label">Username</label>
+        <Field
+          className="input"
+          name="username"
+          type="text"
+          autoComplete="off"
+        />
+        <p>{touched.username && errors.username}</p>
       </div>
       <div className="form-group">
         <label className="label">Password</label>
@@ -26,7 +31,7 @@ const Login = ({ touched, errors }) => {
           type="password"
           autoComplete="off"
         />
-        {/* <p>{touched.password && errors.password}</p> */}
+        <p>{touched.password && errors.password}</p>
       </div>
       <button>Submit</button>
     </Form>
@@ -36,17 +41,15 @@ const Login = ({ touched, errors }) => {
 export default withFormik({
   mapPropsToValues() {
     return {
-      email: "",
+      username: "",
       password: ""
     };
   },
 
   validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email()
-      .required(),
+    username: Yup.string().required(),
     password: Yup.string()
-      .min(6)
+      .min(4)
       .required()
   }),
 
@@ -55,8 +58,9 @@ export default withFormik({
     axios
       .post(url, values)
       .then(response => {
-        localStorage.setItem("token", response.data.token);
-        formikBag.props.history.push("/profile");
+        console.log("handleSubmit response.data", response.data);
+        localStorage.setItem("token", response.data.payload);
+        formikBag.props.history.push("/friends");
       })
       .catch(error => {
         console.log(error.response.data);

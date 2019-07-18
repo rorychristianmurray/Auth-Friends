@@ -8,10 +8,10 @@ function App() {
     <div className="App">
       <div>App incoming</div>
       <div>
-        <Link to="/login">Login</Link>
-        <Link to="/profile">Profile</Link>
+        <Link to="/">Login</Link>
+        <Link to="/friends">Profile</Link>
       </div>
-      <Route path="/login" component={Login} />
+      <Route exact path="/" component={Login} />
     </div>
   );
 }
